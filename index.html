@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to HTML</title>
+</head>
+<body>
+    <textarea id="inputJSON" rows="6" cols="50" placeholder="Paste JSON here..."></textarea>
+    <button id="generateButton">Generate</button>
+    <div id="outputHTML"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const generateButton = document.getElementById('generateButton');
+    const inputJSON = document.getElementById('inputJSON');
+    const outputHTML = document.getElementById('outputHTML');
+
+    generateButton.addEventListener('click', function () {
+        try {
+            const jsonData = JSON.parse(inputJSON.value);
+            let html = '';
+
+            jsonData.forEach(item => {
+                html += `
+                    <div class="root" data-id="${item.id}">
+                        <span class="username">${item.username}</span>
+                        <span class="video_name">${item.video_name}</span>
+                        <span class="additional_details">
+                            <span class="type">${item.action}</span>
+                        </span>
+                    </div>`;
+            });
+
+            outputHTML.textContent = "Output HTML : " + html;
+        } catch (error) {
+            outputHTML.textContent = 'Invalid JSON';
+        }
+    });
+});
+    </script>
+</body>
+</html>
